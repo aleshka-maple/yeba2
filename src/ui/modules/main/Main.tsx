@@ -1,11 +1,11 @@
 import * as React from "react";
 
-export class Chat extends React.Component {
+export class Main extends React.Component {
 
     render () {
         return (
             <section>
-                Chat is here
+                Main is here
                 {/** Other routes? */}
             </section>
         )

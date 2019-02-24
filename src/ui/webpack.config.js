@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
@@ -10,7 +11,7 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        path: path.resolve('./dist')
+        path: path.join(__dirname, './dist')
     },
 
     devtool: "source-map",
@@ -41,7 +42,7 @@ module.exports = {
     },
 
     plugins: [
-        new CleanWebpackPlugin('dist', {}),
+        new CleanWebpackPlugin(path.join(__dirname, './dist'), {}),
         new HtmlWebpackPlugin({
             inject: true,
             filename: 'index.html',

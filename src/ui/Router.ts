@@ -1,8 +1,8 @@
 export const ROUTER = {
     MAIN: {
-        path: 'main'
+        path: '/'
     },
     CHAT: {
-        path: 'chat'
+        path: '/chat'
     }
 };

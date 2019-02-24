@@ -4,7 +4,13 @@
         "target": "ESNext",
         "sourceMap": true,
         "jsx": "react",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "*"
+            ]
+        }
     },
     "exclude": [
         "node_modules"
