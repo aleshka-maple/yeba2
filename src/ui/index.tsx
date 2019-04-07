@@ -2,13 +2,11 @@ import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
-import {createStore} from 'redux';
 import {Route, Switch} from 'react-router';
 import {ROUTER} from "./Router";
 import {Chat} from 'modules/chat/Chat';
 import {Main} from "./modules/main/Main";
-
-const store = createStore(() => {});
+import {store} from "./store/reduxStore";
 
 class Index extends React.Component {
 

@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/kosoylol/yeba2#readme",
   "dependencies": {
+    "bluebird": "3.5.4",
     "lodash": "4.17.11",
     "react": "16.8.1",
     "react-dom": "16.8.1",
@@ -31,6 +32,8 @@
     "webpack": "4.29.3"
   },
   "devDependencies": {
+    "@types/bluebird": "3.5.26",
+    "@types/lodash": "4.14.123",
     "@types/react": "16.8.2",
     "@types/react-dom": "16.8.0",
     "@types/react-redux": "7.0.1",
