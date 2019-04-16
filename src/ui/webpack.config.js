@@ -29,10 +29,6 @@ module.exports = {
                     loader: "style-loader" // creates style nodes from JS strings
                 }, {
                     loader: "css-loader", // translates CSS into CommonJS
-                    options: {
-                        modules: true,
-                        minimize: true
-                    }
                 }, {
                     loader: "less-loader" // compiles Less to CSS
                 }]
