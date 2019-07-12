@@ -3,9 +3,20 @@ import {connect} from "react-redux";
 import {HeartActions} from "../../heart/actions";
 import {IImage} from "../../heart/reducer";
 import './Main.less';
+import {IReduxStore} from "../../store/reduxStore";
+import {MainCustomModal} from "./modals/MainCustomModal";
+
+const cardWidth = 220;
+const cardHeight = 140;
 
 interface IState {
     idx: number;
+    modalOpen: boolean;
+    animation: boolean;
+    left: number;
+    top: number;
+    style: string;
+    index: number;
 }
 
 type TProps = IStateProps & IDispatchProps;
@@ -13,8 +24,16 @@ type TProps = IStateProps & IDispatchProps;
 class Main extends React.Component<TProps, IState> {
 
     state: IState = {
-        idx: 0
+        idx: 0,
+        modalOpen: false,
+        animation: false,
+        left: 0,
+        top: 0,
+        style: '',
+        index: -1
     };
+
+    modal: HTMLElement = null;
 
     componentDidMount () {
         /*const begin = performance.now();
@@ -22,7 +41,12 @@ class Main extends React.Component<TProps, IState> {
         setTimeout(() => {
             clearInterval(intervalTimer);
         }, 1000);*/
+        this.handleLoad();
     }
+
+    refModal = (instance) => {
+        this.modal = instance;
+    };
 
     handleClick = () => {
         this.props.actions.get1();
@@ -35,10 +59,44 @@ class Main extends React.Component<TProps, IState> {
         }), () => this.props.actions.loadTest(oldIdx, this.state.idx));
     };
 
+    handleModalOpen = (e: React.SyntheticEvent, index: number) => {
+        this.setState({
+            modalOpen: true,
+            left: e.currentTarget.getBoundingClientRect().left,
+            top: e.currentTarget.getBoundingClientRect().top,
+            style: '',
+            index: index
+        });
+    };
+
+    handleModalClose = () => {
+        const {left: leftCard, top: topCard, index} = this.state;
+        const {left, top, width, height} = this.modal.getBoundingClientRect();
+        const leftT = leftCard - left;
+        const topT = topCard - top + cardHeight;
+        const scale = cardWidth/width;
+
+        const card = this.props.data[index];
+
+        const animation = `
+        @keyframes message-in-out {
+            0% {transform: translate(0px, 0px); border-radius: 16px;}
+            50% {transform: translate(${leftT}px, ${topT}px) scale(${scale}); opacity: 1; border-radius: ${16/scale}px;}
+            85% {transform: translate(${leftT}px, ${topT - cardHeight}px) scale(${scale}); opacity: 0; $border-radius: ${16/scale}px;}
+            100% {transform: translate(${leftT}px, ${topT - cardHeight}px) scale(${scale}); opacity: 0; border-radius: ${16/scale}px;}
+        }
+        `;
+        this.setState({
+            style: animation
+        });
+
+        setTimeout(() => this.setState({modalOpen: false, index: -1, style: ''}), 2000);
+    };
+
     render () {
+        const {modalOpen, style} = this.state;
         return (
             <section className="main">
-                Main is here
                 <div>
                     <button onClick={this.handleClick}>Generate</button>
                 </div>
@@ -53,18 +111,35 @@ class Main extends React.Component<TProps, IState> {
 
                 <div className="image-test-section">
                     {
-                        this.props.data.map((item, index) => {
+                        this.props.data.slice(0, 6).map((item, index) => {
                             return (
-                                <div className="image-test-container" key={item.image}>
+                                <div
+                                    key={item.image}
+                                    className={`image-test-container ${style && index === this.state.index ? 'animated' : ''}`}
+                                    onClick={(e) => this.handleModalOpen(e, index)}
+                                >
+                                    <div className="back-side"/>
                                     <div className="index-label">
                                         {index}
                                     </div>
                                     {item.status && <img className="image-test" src={item.image} />}
                                 </div>
-                            );
+                            )
                         })
                     }
                 </div>
+                <style>
+                    {style}
+                </style>
+                {
+                    modalOpen && (
+                        <MainCustomModal
+                            onClose={this.handleModalClose}
+                            getRef={this.refModal}
+                            className={`my-modal ${style ? 'animated' : ''}`}
+                        />
+                    )
+                }
 
                 {/** Other routes? */}
             </section>
@@ -77,7 +152,7 @@ interface IStateProps {
     data: IImage[];
 }
 
-const mapStateToProps = (state): IStateProps => ({
+const mapStateToProps = (state: IReduxStore): IStateProps => ({
     test: state.heart.test,
     data: state.heart.data
 });
@@ -90,6 +165,6 @@ const mapDispatchToProps = (dispatch): IDispatchProps => ({
     actions: new HeartActions(dispatch)
 });
 
-const connected = connect(mapStateToProps, mapDispatchToProps)(Main);
+const connected = connect<IStateProps, IDispatchProps>(mapStateToProps, mapDispatchToProps)(Main);
 
 export {connected as Main}

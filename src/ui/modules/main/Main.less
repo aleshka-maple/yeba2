@@ -2,14 +2,16 @@
     .image-test-section {
         display: flex;
         flex-wrap: wrap;
+        overflow: hidden;
 
         .image-test-container {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 140px;
             background-color: #444444;
             overflow: hidden;
             position: relative;
-            outline: 1px solid #fff;
+            border-radius: 16px;
+            margin: 0 8px;
 
             .index-label {
                 position: absolute;
@@ -21,9 +23,40 @@
                 width: 100px;
                 color: #fff;
             }
+
+            &.animated {
+                animation-name: hahaha;
+                animation-duration: 2s;
+                animation-direction: normal;
+                animation-timing-function: linear;
+                animation-fill-mode: forwards;
+
+                z-index: 100;
+            }
         }
         .image-test {
             width: 100%;
         }
     }
+}
+
+.my-modal {
+    border-radius: 16px;
+    border: 0;
+
+    &.animated {
+        transform-origin: top left;
+        animation-name: message-in-out;
+        animation-duration: 2s;
+        animation-direction: normal;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes hahaha {
+    0% {width: 0; opacity: 0; transform: translateY(141px)}
+    50% {width: 220px; opacity: 0.6; transform: translateY(141px)}
+    85% {width: 220px; opacity: 1; transform: translateY(0);}
+    100% {width: 220px; opacity: 1; transform: translateY(0);}
 }

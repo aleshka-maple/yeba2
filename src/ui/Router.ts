@@ -4,5 +4,8 @@ export const ROUTER = {
     },
     CHAT: {
         path: '/chat'
+    },
+    TEST: {
+        path: '/test'
     }
 };

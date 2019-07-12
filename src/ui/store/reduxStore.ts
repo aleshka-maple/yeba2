@@ -1,12 +1,17 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {HeartReducer} from "heart/reducer";
+import {IHeartReduxState} from "../heart/reducer";
 
-const storeMap = {
+export interface IReduxStore {
+    heart: IHeartReduxState;
+}
+
+const reduxStoreMap = {
     heart: HeartReducer
 };
 
-export const store = createStore(combineReducers(storeMap), applyMiddleware(thunk));
+export const store = createStore(combineReducers(reduxStoreMap), applyMiddleware(thunk));
 
 function logger ({getState}) {
     return (_dispatch) => (_action) => {

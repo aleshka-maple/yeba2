@@ -5,7 +5,7 @@ const data1 = [
         status: false
     },
     {
-        image: 'https://images.unsplash.com/photo-1554513748-aa63f6553978?ixlib=rb-1.2.1&ixi',
+        image: 'https://images.unsplash.com/photo-1554871405-b332ceb90912?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
         status: false
     },
     {
@@ -18,10 +18,6 @@ const data1 = [
     },
     {
         image: 'https://images.unsplash.com/photo-1554620803-91b51abb80c7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-        status: false
-    },
-    {
-        image: 'https://images.unsplash.com/photo-1554871405-b332ceb90912?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
         status: false
     },
     {

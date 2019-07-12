@@ -4,7 +4,7 @@ import {particle} from "./reduxUtils";
 import {heartActionTypes} from "./actionTypes";
 import {data1} from "./mock/data";
 
-interface IHeartReduxState {
+export interface IHeartReduxState {
     test: number;
     data: IImage[];
 }
@@ -12,6 +12,7 @@ interface IHeartReduxState {
 export interface IImage {
     image: string;
     status: boolean;
+    onStart?: boolean;
 }
 
 const initialState = {
