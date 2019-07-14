@@ -76,13 +76,11 @@ class Main extends React.Component<TProps, IState> {
         const topT = topCard - top + cardHeight;
         const scale = cardWidth/width;
 
-        const card = this.props.data[index];
-
         const animation = `
         @keyframes message-in-out {
             0% {transform: translate(0px, 0px); border-radius: 16px;}
             50% {transform: translate(${leftT}px, ${topT}px) scale(${scale}); opacity: 1; border-radius: ${16/scale}px;}
-            85% {transform: translate(${leftT}px, ${topT - cardHeight}px) scale(${scale}); opacity: 0; $border-radius: ${16/scale}px;}
+            85% {transform: translate(${leftT}px, ${topT - cardHeight}px) scale(${scale}); opacity: 0; border-radius: ${16/scale}px;}
             100% {transform: translate(${leftT}px, ${topT - cardHeight}px) scale(${scale}); opacity: 0; border-radius: ${16/scale}px;}
         }
         `;
@@ -90,7 +88,7 @@ class Main extends React.Component<TProps, IState> {
             style: animation
         });
 
-        setTimeout(() => this.setState({modalOpen: false, index: -1, style: ''}), 2000);
+        setTimeout(() => this.setState({modalOpen: false, index: -1, style: ''}), 1700);
     };
 
     render () {
