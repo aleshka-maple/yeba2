@@ -1,7 +1,6 @@
 .main {
     .image-test-section {
-        display: flex;
-        flex-wrap: wrap;
+        display: inline-flex;
         overflow: hidden;
 
         .image-test-container {
@@ -36,6 +35,28 @@
         }
         .image-test {
             width: 100%;
+        }
+    }
+
+    .another-ipa {
+        width: 100px;
+        height: 100px;
+        background-color: orange;
+    }
+
+    .image-test-section-scrollbar-container {
+        .left-button-container, .right-button-container {
+            position: absolute;
+            top: 50%;
+        }
+        .left-button-container {
+            left: 0;
+        }
+        .right-button-container {
+            right: 0;
+        }
+
+        .ScrollbarsCustom-Scroller {
         }
     }
 }

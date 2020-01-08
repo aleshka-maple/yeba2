@@ -1,0 +1,25 @@
+.test-section {
+
+    .test-option {
+        display: flex;
+        justify-content: space-between;
+        width: 800px;
+        margin-bottom: 16px;
+
+        .test-option-label {
+            &.passed {
+                background-color: green;
+                color: #fff;
+            }
+            &.not-passed {
+                background-color: red;
+                color: #fff;
+            }
+        }
+        .test-option-result {
+            &> * {
+                padding: 4px;
+            }
+        }
+    }
+}

@@ -5,6 +5,7 @@ import {IImage} from "../../heart/reducer";
 import './Main.less';
 import {IReduxStore} from "../../store/reduxStore";
 import {MainCustomModal} from "./modals/MainCustomModal";
+import Scrollbar from "react-scrollbars-custom";
 
 const cardWidth = 220;
 const cardHeight = 140;
@@ -17,6 +18,7 @@ interface IState {
     top: number;
     style: string;
     index: number;
+    scrollLeft: number;
 }
 
 type TProps = IStateProps & IDispatchProps;
@@ -30,10 +32,19 @@ class Main extends React.Component<TProps, IState> {
         left: 0,
         top: 0,
         style: '',
-        index: -1
+        index: -1,
+        scrollLeft: 0
     };
 
     modal: HTMLElement = null;
+
+    slider = null;
+
+    setSliderRef = (instance) => {
+        console.log(instance);
+        this.slider = instance;
+    };
+
 
     componentDidMount () {
         /*const begin = performance.now();
@@ -91,6 +102,20 @@ class Main extends React.Component<TProps, IState> {
         setTimeout(() => this.setState({modalOpen: false, index: -1, style: ''}), 1700);
     };
 
+    handleClickRight = () => {
+        this.setState((prevState) => ({
+            ...prevState,
+            scrollLeft: Math.min(prevState.scrollLeft + 100, this.slider.scrollWidth - this.slider.clientWidth)
+        }))
+    };
+
+    handleClickLeft = () => {
+        this.setState((prevState) => ({
+            ...prevState,
+            scrollLeft: Math.max(prevState.scrollLeft - 100, 0)
+        }))
+    };
+
     render () {
         const {modalOpen, style} = this.state;
         return (
@@ -107,25 +132,48 @@ class Main extends React.Component<TProps, IState> {
 
                 </div>
 
-                <div className="image-test-section">
-                    {
-                        this.props.data.slice(0, 6).map((item, index) => {
-                            return (
-                                <div
-                                    key={item.image}
-                                    className={`image-test-container ${style && index === this.state.index ? 'animated' : ''}`}
-                                    onClick={(e) => this.handleModalOpen(e, index)}
-                                >
-                                    <div className="back-side"/>
-                                    <div className="index-label">
-                                        {index}
-                                    </div>
-                                    {item.status && <img className="image-test" src={item.image} />}
-                                </div>
-                            )
-                        })
-                    }
+                <div className="image-test-section-scrollbar-container">
+                    <Scrollbar
+                        style={{ width: '100%', height: 140}}
+                        noScroll={true}
+                        scrollLeft={this.state.scrollLeft}
+                        ref={this.setSliderRef}
+                    >
+                        <div className="image-test-section">
+                            {
+                                this.props.data.slice(0, 20).map((item, index) => {
+                                    return (
+                                        <div
+                                            key={item.image}
+                                            className={`image-test-container ${style && index === this.state.index ? 'animated' : ''}`}
+                                            onClick={(e) => this.handleModalOpen(e, index)}
+                                        >
+                                            <div className="back-side"/>
+                                            <div className="index-label">
+                                                {index}
+                                            </div>
+                                            {item.status && <img className="image-test" src={item.image} />}
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </Scrollbar>
+                    <div className="left-button-container">
+                        <button onClick={this.handleClickLeft}>
+                            left
+                        </button>
+                    </div>
+                    <div className="right-button-container">
+                        <button onClick={this.handleClickRight}>
+                            right
+                        </button>
+                    </div>
                 </div>
+
+                <div className="another-ipa">
+                </div>
+
                 <style>
                     {style}
                 </style>

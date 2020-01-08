@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dll": "webpack --config src/ui/dll/webpack.config.js",
     "dev:ui": "webpack --mode=development --watch --config src/ui/webpack.config.js",
-    "dev:b": ""
+    "dev:b:ts": "tsc --watch --project src/b/tsconfig.json",
+    "dev:b:node": "node -r esm src/b/dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,9 @@
   },
   "homepage": "https://github.com/kosoylol/yeba2#readme",
   "dependencies": {
+    "@types/node": "^12.6.9",
     "bluebird": "3.5.4",
+    "esm": "^3.2.25",
     "lodash": "4.17.11",
     "react": "16.8.1",
     "react-dom": "16.8.1",
@@ -28,9 +31,11 @@
     "react-redux": "6.0.0",
     "react-router": "4.3.1",
     "react-router-dom": "4.3.1",
+    "react-scrollbars-custom": "^4.0.16",
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
-    "webpack": "4.29.3"
+    "webpack": "4.29.3",
+    "ws": "^7.1.1"
   },
   "devDependencies": {
     "@types/bluebird": "3.5.26",
